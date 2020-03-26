@@ -37,6 +37,8 @@ test.each([
   [NaN, NaN],
   [Infinity, Infinity],
   [-Infinity, -Infinity],
+  [true, 1],
+  [false, 0],
   [Symbol('text'), NaN],
   [[], 0],
   [[1], 1],
