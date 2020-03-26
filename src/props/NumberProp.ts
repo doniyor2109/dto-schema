@@ -29,7 +29,7 @@ export function NumberProp({
   }
 
   return Prop({
-    type: 'string',
+    type: 'number',
     nullable: shouldBeNullable,
     testType(raw) {
       return isNumber(raw);
