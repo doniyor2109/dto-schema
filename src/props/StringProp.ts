@@ -1,4 +1,4 @@
-import { getObjectTag, isObject, isString } from '../internal/utils';
+import { isString, toString } from '../internal/utils';
 import { Prop } from './Prop';
 
 export interface StringPropOptions {
@@ -16,30 +16,16 @@ export function StringProp({
     testType(raw) {
       return isString(raw);
     },
-    normalize(value) {
-      if (value == null) {
-        value = '';
-      }
-
-      if (isObject(value)) {
-        const tag = Object.prototype.toString.call(value);
-
-        if (tag === '[object Object]') {
-          return getObjectTag(value);
-        }
-      }
-
-      if (!isString(value)) {
-        value = String(value);
-      }
+    normalize(raw) {
+      let value = toString(raw);
 
       if (trim) {
         value =
           trim === 'left'
-            ? (value as string).trimLeft()
+            ? value.trimLeft()
             : trim === 'right'
-            ? (value as string).trimRight()
-            : (value as string).trim();
+            ? value.trimRight()
+            : value.trim();
       }
 
       return value;
