@@ -1,0 +1,8 @@
+{
+  "include": ["src"],
+  "extends": "@superdispatch/tsconfig",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
+  }
+}

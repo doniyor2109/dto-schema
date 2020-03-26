@@ -1,0 +1,26 @@
+{
+  "name": "dto-schema",
+  "version": "0.0.1",
+  "description": "DTO mapper and validator",
+  "repository": "git@github.com:umidbekkarimov/dto-schema.git",
+  "license": "MIT",
+  "author": "Umidbek Karimov <uma.karimov@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "lint": "js-tools lint",
+    "tdd": "jest --watch",
+    "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "@superdispatch/babel-preset": "^0.1.46",
+    "@superdispatch/eslint-plugin": "^0.1.46",
+    "@superdispatch/js-tools": "^0.1.47",
+    "@superdispatch/prettier-config": "^0.1.26",
+    "@superdispatch/tsconfig": "^0.1.48",
+    "@types/jest": "^25.1.4",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  }
+}
