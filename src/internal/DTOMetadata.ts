@@ -2,28 +2,45 @@ import { DTOSchema } from './DTOSchema';
 
 export type DTOConstructor<T extends object = object> = new () => T;
 
-const metadata: WeakMap<
-  DTOConstructor,
-  Map<string | number | symbol, DTOSchema>
-> = new WeakMap();
+export type DTOCollectionType<
+  TEntry,
+  TCollection extends Iterable<TEntry> | ArrayLike<TEntry> = TEntry[]
+> = (array: TEntry[]) => TCollection;
 
-export function getDTOMeta<T extends object = object>(
-  target: DTOConstructor<T>,
-): Map<keyof T, DTOSchema> {
-  let meta = metadata.get(target) as Map<keyof T, DTOSchema>;
+export interface DTOPropMeta<TValue = unknown> {
+  schema?: DTOSchema<TValue>;
+  arraySchema?: DTOSchema<TValue[]>;
+}
+
+const metadata = new WeakMap<Function, Map<string, DTOPropMeta>>();
+
+export function getDTOMeta(target: Function): Map<string, DTOPropMeta> {
+  let meta = metadata.get(target);
 
   if (!meta) {
-    meta = new Map<keyof T, DTOSchema>();
-    metadata.set(target, meta);
+    meta = new Map();
+    metadata.set(target, meta as Map<string, DTOPropMeta>);
   }
 
   return meta;
 }
 
-export function registerProp<T>(
+export function getPropMeta(target: object, propertyKey: string): DTOPropMeta {
+  const meta = getDTOMeta(target.constructor);
+  let propMeta = meta.get(propertyKey);
+
+  if (!propMeta) {
+    propMeta = {};
+    meta.set(propertyKey, propMeta);
+  }
+
+  return propMeta;
+}
+
+export function registerPropMeta(
   target: object,
   propertyKey: string | symbol,
-  schema: DTOSchema<T>,
+  nextPropMeta: DTOPropMeta,
 ) {
   if (typeof propertyKey !== 'string') {
     throw new TypeError(
@@ -31,13 +48,25 @@ export function registerProp<T>(
     );
   }
 
-  const meta = getDTOMeta(target.constructor as DTOConstructor);
+  const propMeta = getPropMeta(target, propertyKey);
 
-  if (meta.has(propertyKey as never)) {
+  if (propMeta.schema && nextPropMeta.schema) {
     throw new Error(
       `Property '${propertyKey}' for class ${target.constructor.name} was already registered.`,
     );
   }
 
-  meta.set(propertyKey as never, schema as DTOSchema);
+  if (propMeta.arraySchema && nextPropMeta.arraySchema) {
+    throw new Error(
+      `Property '${propertyKey}' for class ${target.constructor.name} was already registered as array.`,
+    );
+  }
+
+  if (nextPropMeta.schema) {
+    propMeta.schema = nextPropMeta.schema;
+  }
+
+  if (nextPropMeta.arraySchema) {
+    propMeta.arraySchema = nextPropMeta.arraySchema;
+  }
 }

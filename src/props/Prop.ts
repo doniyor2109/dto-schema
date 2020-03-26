@@ -1,8 +1,8 @@
-import { registerProp } from '../internal/DTOMetadata';
+import { registerPropMeta } from '../internal/DTOMetadata';
 import { DTOSchema, DTOSchemaOptions } from '../internal/DTOSchema';
 
-export function Prop<T>(options: DTOSchemaOptions<T>): PropertyDecorator {
+export function Prop(options: DTOSchemaOptions): PropertyDecorator {
   return (target, propertyKey) => {
-    registerProp(target, propertyKey, new DTOSchema(options));
+    registerPropMeta(target, propertyKey, { schema: new DTOSchema(options) });
   };
 }

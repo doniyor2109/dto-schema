@@ -12,9 +12,18 @@ export function serializeDTO<TValue extends object>(
 
   const plain = {};
 
-  meta.forEach((schema, key) => {
+  meta.forEach(({ schema, arraySchema }, key) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (plain as any)[key] = schema.serialize((raw as any)[key]);
+    let value = (raw as any)[key];
+
+    if (arraySchema) {
+      value = arraySchema.serialize(value);
+    } else if (schema) {
+      value = schema.serialize(value);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (plain as any)[key] = value;
   });
 
   return plain;

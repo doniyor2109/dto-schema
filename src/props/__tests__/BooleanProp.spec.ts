@@ -27,18 +27,19 @@ test.each<[BooleanPropOptions, unknown, boolean | null]>([
     @BooleanProp(options) value: string;
   }
 
-  const parsed = parseDTO(Foo, { value: input });
-  expect(parsed).toBeInstanceOf(Foo);
-  expect(parsed).toEqual({ value: result });
+  const parsed1 = parseDTO(Foo, { value: input });
+  expect(parsed1).toBeInstanceOf(Foo);
+  expect(parsed1).toEqual({ value: result });
 
-  const serialized = serializeDTO(Foo, { value: input });
-  expect(serialized).not.toBeInstanceOf(Foo);
-  expect(serialized).toEqual({ value: result });
+  const parsed2 = parseDTO(Foo, parseDTO(Foo, { value: input }));
+  expect(parsed2).toBeInstanceOf(Foo);
+  expect(parsed2).toEqual({ value: result });
 
-  const serializedFromParsed = serializeDTO(
-    Foo,
-    parseDTO(Foo, { value: input }),
-  );
-  expect(serializedFromParsed).not.toBeInstanceOf(Foo);
-  expect(serializedFromParsed).toEqual({ value: result });
+  const serialized1 = serializeDTO(Foo, { value: input });
+  expect(serialized1).not.toBeInstanceOf(Foo);
+  expect(serialized1).toEqual({ value: result });
+
+  const serialized2 = serializeDTO(Foo, parseDTO(Foo, { value: input }));
+  expect(serialized2).not.toBeInstanceOf(Foo);
+  expect(serialized2).toEqual({ value: result });
 });

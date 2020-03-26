@@ -1,4 +1,4 @@
-export interface DTOSchemaOptions<TValue> {
+export interface DTOSchemaOptions<TValue = unknown> {
   type: string;
   nullable?: boolean;
 
