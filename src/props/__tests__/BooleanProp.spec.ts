@@ -13,18 +13,15 @@ test.each<[BooleanPropOptions, unknown, boolean | null]>([
   [{}, NaN, false],
   [{}, null, false],
   [{}, undefined, false],
-  [{ nullable: true }, 0, false],
-  [{ nullable: true }, '', false],
-  [{ nullable: true }, NaN, false],
-  [{ nullable: true }, null, null],
-  [{ nullable: true }, undefined, null],
+  [{ defaultValue: null }, 0, false],
+  [{ defaultValue: null }, '', false],
+  [{ defaultValue: null }, NaN, false],
+  [{ defaultValue: null }, null, null],
+  [{ defaultValue: null }, undefined, null],
 
   [{ defaultValue: true }, NaN, false],
   [{ defaultValue: true }, null, true],
   [{ defaultValue: true }, undefined, true],
-  [{ nullable: true, defaultValue: true }, NaN, false],
-  [{ nullable: true, defaultValue: true }, null, true],
-  [{ nullable: true, defaultValue: true }, undefined, true],
 ])('BooleanProp(%p, { value: %p }) => %p', (options, input, result) => {
   class Foo {
     @BooleanProp(options)

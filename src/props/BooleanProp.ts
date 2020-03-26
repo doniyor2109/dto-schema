@@ -2,19 +2,15 @@ import { isBoolean } from '../internal/utils';
 import { Prop } from './Prop';
 
 export interface BooleanPropOptions {
-  nullable?: boolean;
-  defaultValue?: boolean;
+  defaultValue?: null | boolean;
 }
 
 export function BooleanProp({
-  nullable,
   defaultValue,
 }: BooleanPropOptions = {}): PropertyDecorator {
-  const shouldBeNullable = defaultValue != null ? false : nullable;
-
   return Prop({
     type: 'boolean',
-    nullable: shouldBeNullable,
+    nullable: defaultValue === null,
     testType(raw) {
       return isBoolean(raw);
     },
