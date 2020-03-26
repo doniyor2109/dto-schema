@@ -3,9 +3,17 @@ import { serializeDTO } from '../../serializeDTO';
 import { NumberProp, NumberPropOptions } from '../NumberProp';
 
 test.each<[NumberPropOptions, unknown, number | null]>([
+  [{}, 1, 1],
+  [{}, '1', 1],
+  [{}, true, 1],
+  [{}, false, 0],
+  [{}, new Date(0), 0],
+
+  [{}, '', NaN],
   [{}, NaN, NaN],
   [{}, null, NaN],
   [{}, undefined, NaN],
+  [{ nullable: true }, '', NaN],
   [{ nullable: true }, NaN, NaN],
   [{ nullable: true }, null, null],
   [{ nullable: true }, undefined, null],
