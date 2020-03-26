@@ -77,9 +77,7 @@ export function toString(value: unknown): string {
   }
 
   if (isDate(value)) {
-    return Number.isNaN(value.valueOf())
-      ? value.toString()
-      : value.toISOString();
+    return value.toJSON() ?? value.toString();
   }
 
   if (Array.isArray(value)) {

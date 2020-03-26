@@ -24,8 +24,7 @@ test.each<[BooleanPropOptions, unknown, boolean | null]>([
   [{ defaultValue: true }, undefined, true],
 ])('BooleanProp(%p, { value: %p }) => %p', (options, input, result) => {
   class Foo {
-    @BooleanProp(options)
-    value: string;
+    @BooleanProp(options) value: string;
   }
 
   const parsed = parseDTO(Foo, { value: input });

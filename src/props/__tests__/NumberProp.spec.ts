@@ -51,8 +51,7 @@ test.each<[NumberPropOptions, unknown, number | null]>([
   [{ clampMax: 5, clampMin: -5 }, -10, -5],
 ])('NumberProp(%p, { value: %p }) => %p', (options, input, result) => {
   class Foo {
-    @NumberProp(options)
-    value: string;
+    @NumberProp(options) value: string;
   }
 
   const parsed = parseDTO(Foo, { value: input });

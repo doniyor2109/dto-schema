@@ -24,8 +24,7 @@ test.each<[StringPropOptions, unknown, string | null]>([
   [{ trim: 'right' }, ' text ', ' text'],
 ])('StringProp(%p, { value: %p }) => %p', (options, input, result) => {
   class Foo {
-    @StringProp(options)
-    value: string;
+    @StringProp(options) value: string;
   }
 
   const parsed = parseDTO(Foo, { value: input });
