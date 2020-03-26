@@ -4,8 +4,7 @@ import { Prop } from './Prop';
 export interface NumberPropOptions {
   clampMin?: number;
   clampMax?: number;
-  nullable?: boolean;
-  defaultValue?: number;
+  defaultValue?: null | number;
   round?: boolean | 'ceil' | 'floor' | 'trunc';
 }
 
@@ -13,11 +12,8 @@ export function NumberProp({
   round,
   clampMax,
   clampMin,
-  nullable,
   defaultValue,
 }: NumberPropOptions = {}): PropertyDecorator {
-  const shouldBeNullable = defaultValue != null ? false : nullable;
-
   if (
     round !== undefined &&
     !isBoolean(round) &&
@@ -30,7 +26,7 @@ export function NumberProp({
 
   return Prop({
     type: 'number',
-    nullable: shouldBeNullable,
+    nullable: defaultValue === null,
     testType(raw) {
       return isNumber(raw);
     },
