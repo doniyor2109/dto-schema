@@ -3,6 +3,11 @@ import { serializeDTO } from '../../serializeDTO';
 import { StringProp, StringPropOptions } from '../StringProp';
 
 test.each<[StringPropOptions, unknown, string | null]>([
+  [{}, 1, '1'],
+  [{}, 'text', 'text'],
+  [{}, 'true', 'true'],
+  [{}, 'false', 'false'],
+
   [{}, '', ''],
   [{}, null, ''],
   [{}, undefined, ''],
