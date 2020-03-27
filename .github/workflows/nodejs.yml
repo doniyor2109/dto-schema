@@ -52,7 +52,7 @@ jobs:
         run: yarn build
 
       - name: Publish
-        run: npm publish pkg --access public
         if: ${{ github.event.release.tag_name }}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > ./.npmrc
+          npm publish pkg --access public
