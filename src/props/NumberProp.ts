@@ -24,7 +24,7 @@ export function NumberProp({
     throw new TypeError(`Unexpected 'round' property ${round}`);
   }
 
-  return Prop({
+  return Prop<number | null>({
     type: 'number',
     nullable: defaultValue === null,
     testType(raw) {

@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-module.exports = require('@superdispatch/prettier-config')
+module.exports = require('@superdispatch/prettier-config');

@@ -8,7 +8,7 @@ export interface DatePropOptions {
 export function DateProp({
   defaultValue,
 }: DatePropOptions = {}): PropertyDecorator {
-  return Prop<Date>({
+  return Prop<null | Date>({
     type: 'boolean',
     nullable: defaultValue === null,
     testType(raw) {
