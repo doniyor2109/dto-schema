@@ -12,7 +12,8 @@
     "bump": "pika publish --no-publish",
     "lint": "js-tools lint",
     "tdd": "jest --watch",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "version": "yarn build"
   },
   "devDependencies": {
     "@pika/cli": "^0.2.0",
