@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - '**'
+  release:
+    types:
+      - created
 
 jobs:
   build:
@@ -47,3 +50,9 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Publish
+        run: npm publish pkg --access public
+        if: ${{ github.event.release.tag_name }}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
