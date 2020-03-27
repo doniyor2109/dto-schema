@@ -2,20 +2,20 @@ import { parseDTO } from '../../parseDTO';
 import { serializeDTO } from '../../serializeDTO';
 import { StringProp, StringPropOptions } from '../StringProp';
 
-test.each<[StringPropOptions, unknown, string | null]>([
-  [{}, 1, '1'],
-  [{}, 'text', 'text'],
-  [{}, 'true', 'true'],
-  [{}, 'false', 'false'],
+test.each<[undefined | StringPropOptions, unknown, string | null]>([
+  [undefined, 1, '1'],
+  [undefined, 'text', 'text'],
+  [undefined, 'true', 'true'],
+  [undefined, 'false', 'false'],
 
-  [{}, '', ''],
-  [{}, null, ''],
-  [{}, undefined, ''],
+  [undefined, '', ''],
+  [undefined, null, ''],
+  [undefined, undefined, ''],
   [{ nullable: true }, '', ''],
   [{ nullable: true }, null, null],
   [{ nullable: true }, undefined, null],
 
-  [{}, ' text ', ' text '],
+  [undefined, ' text ', ' text '],
   [{ trim: true }, '', ''],
   [{ trim: true }, null, ''],
   [{ trim: true }, undefined, ''],

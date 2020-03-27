@@ -10,7 +10,7 @@ export function StringProp({
   nullable,
   trim = false,
 }: StringPropOptions = {}): PropertyDecorator {
-  return Prop<string | null>({
+  return Prop<string>({
     type: 'string',
     nullable,
     testType(raw) {

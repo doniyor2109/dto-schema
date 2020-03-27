@@ -2,17 +2,17 @@ import { parseDTO } from '../../parseDTO';
 import { serializeDTO } from '../../serializeDTO';
 import { BooleanProp, BooleanPropOptions } from '../BooleanProp';
 
-test.each<[BooleanPropOptions, unknown, boolean | null]>([
-  [{}, true, true],
-  [{}, false, false],
-  [{}, 1, true],
-  [{}, '1', true],
+test.each<[undefined | BooleanPropOptions, unknown, boolean | null]>([
+  [undefined, true, true],
+  [undefined, false, false],
+  [undefined, 1, true],
+  [undefined, '1', true],
 
-  [{}, 0, false],
-  [{}, '', false],
-  [{}, NaN, false],
-  [{}, null, false],
-  [{}, undefined, false],
+  [undefined, 0, false],
+  [undefined, '', false],
+  [undefined, NaN, false],
+  [undefined, null, false],
+  [undefined, undefined, false],
   [{ defaultValue: null }, 0, false],
   [{ defaultValue: null }, '', false],
   [{ defaultValue: null }, NaN, false],

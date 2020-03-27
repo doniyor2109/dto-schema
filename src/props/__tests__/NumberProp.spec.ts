@@ -2,17 +2,17 @@ import { parseDTO } from '../../parseDTO';
 import { serializeDTO } from '../../serializeDTO';
 import { NumberProp, NumberPropOptions } from '../NumberProp';
 
-test.each<[NumberPropOptions, unknown, number | null]>([
-  [{}, 1, 1],
-  [{}, '1', 1],
-  [{}, true, 1],
-  [{}, false, 0],
-  [{}, new Date(0), 0],
+test.each<[undefined | NumberPropOptions, unknown, number | null]>([
+  [undefined, 1, 1],
+  [undefined, '1', 1],
+  [undefined, true, 1],
+  [undefined, false, 0],
+  [undefined, new Date(0), 0],
 
-  [{}, '', NaN],
-  [{}, NaN, NaN],
-  [{}, null, NaN],
-  [{}, undefined, NaN],
+  [undefined, '', NaN],
+  [undefined, NaN, NaN],
+  [undefined, null, NaN],
+  [undefined, undefined, NaN],
   [{ defaultValue: null }, '', NaN],
   [{ defaultValue: null }, NaN, NaN],
   [{ defaultValue: null }, null, null],

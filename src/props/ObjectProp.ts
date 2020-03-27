@@ -1,5 +1,4 @@
 import { DTOConstructor } from '../internal/DTOMetadata';
-import { isObject } from '../internal/utils';
 import { parseDTO } from '../parseDTO';
 import { serializeDTO } from '../serializeDTO';
 import { Prop } from './Prop';
@@ -12,17 +11,17 @@ export function ObjectProp(
   constructorFactory: () => DTOConstructor,
   { nullable }: ObjectPropOptions = {},
 ): PropertyDecorator {
-  return Prop<object | null>({
+  return Prop<object>({
     nullable,
     type: 'object',
     testType(value) {
       return value instanceof constructorFactory();
     },
     serialize(value) {
-      return serializeDTO(constructorFactory(), value || {});
+      return serializeDTO(constructorFactory(), value);
     },
     normalize(value) {
-      return parseDTO(constructorFactory(), isObject(value) ? value : {});
+      return parseDTO(constructorFactory(), value as object);
     },
   });
 }

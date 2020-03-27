@@ -8,14 +8,14 @@ export interface DatePropOptions {
 export function DateProp({
   defaultValue,
 }: DatePropOptions = {}): PropertyDecorator {
-  return Prop<null | Date>({
+  return Prop<Date>({
     type: 'boolean',
     nullable: defaultValue === null,
     testType(raw) {
       return isDate(raw);
     },
     serialize(raw) {
-      return raw == null ? null : raw.toJSON();
+      return raw.toJSON();
     },
     normalize(raw) {
       if (raw == null && defaultValue != null) {

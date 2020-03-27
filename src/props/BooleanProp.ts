@@ -8,7 +8,7 @@ export interface BooleanPropOptions {
 export function BooleanProp({
   defaultValue,
 }: BooleanPropOptions = {}): PropertyDecorator {
-  return Prop<boolean | null>({
+  return Prop<boolean>({
     type: 'boolean',
     nullable: defaultValue === null,
     testType(raw) {
