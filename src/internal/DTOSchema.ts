@@ -14,16 +14,15 @@ export class DTOSchema<TValue = unknown> {
     this.options = { ...options, nullable };
   }
 
-  parse(raw: TValue | unknown): TValue {
+  parse(raw: TValue | unknown): null | TValue {
     const { type, normalize, nullable, testType } = this.options;
 
     if (raw == null) {
       raw = null;
     }
 
-    if (nullable && raw == null) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return null as any;
+    if (nullable && raw === null) {
+      return null;
     }
 
     const value = normalize(raw);
@@ -46,7 +45,7 @@ export class DTOSchema<TValue = unknown> {
 
     const value = this.parse(raw);
 
-    if (serialize) {
+    if (value != null && serialize) {
       return serialize(value);
     }
 

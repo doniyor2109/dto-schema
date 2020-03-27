@@ -8,20 +8,20 @@ export interface ObjectPropOptions {
 }
 
 export function ObjectProp(
-  Cls: DTOConstructor,
-  { nullable = false }: ObjectPropOptions = {},
+  constructorFactory: () => DTOConstructor,
+  { nullable }: ObjectPropOptions = {},
 ): PropertyDecorator {
   return Prop({
     nullable,
-    type: Cls.name,
+    type: 'object',
     testType(value) {
-      return value instanceof Cls;
+      return value instanceof constructorFactory();
     },
     serialize(value) {
-      return serializeDTO(Cls, value as object);
+      return serializeDTO(constructorFactory(), (value || {}) as object);
     },
     normalize(value) {
-      return parseDTO(Cls, value as object);
+      return parseDTO(constructorFactory(), (value || {}) as object);
     },
   });
 }
