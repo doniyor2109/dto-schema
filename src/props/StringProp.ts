@@ -7,8 +7,8 @@ export interface StringPropOptions {
 }
 
 export function StringProp({
+  trim,
   nullable,
-  trim = false,
 }: StringPropOptions = {}): PropertyDecorator {
   return Prop<string>({
     type: 'string',
@@ -19,13 +19,16 @@ export function StringProp({
     normalize(raw) {
       let value = toString(raw);
 
-      if (trim) {
-        value =
-          trim === 'left'
-            ? value.trimLeft()
-            : trim === 'right'
-            ? value.trimRight()
-            : value.trim();
+      switch (trim) {
+        case true:
+          value = value.trim();
+          break;
+        case 'left':
+          value = value.trimLeft();
+          break;
+        case 'right':
+          value = value.trimRight();
+          break;
       }
 
       return value;
