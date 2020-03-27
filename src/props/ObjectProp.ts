@@ -1,6 +1,5 @@
 import { DTOConstructor } from '../internal/DTOMetadata';
-import { parseDTO } from '../parseDTO';
-import { serializeDTO } from '../serializeDTO';
+import { parseDTO, serializeDTO } from '../traversers';
 import { Prop } from './Prop';
 
 export interface ObjectPropOptions {

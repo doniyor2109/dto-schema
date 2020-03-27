@@ -1,5 +1,4 @@
-import { parseDTO } from '../../parseDTO';
-import { serializeDTO } from '../../serializeDTO';
+import { parseDTO, serializeDTO } from '../../traversers';
 import { DateProp, DatePropOptions } from '../DateProp';
 
 test.each<[undefined | DatePropOptions, unknown, null | Date, null | string]>([

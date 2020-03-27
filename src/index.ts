@@ -1,5 +1,4 @@
-export * from './parseDTO';
-export * from './serializeDTO';
+export * from './traversers';
 
 export * from './props/ArrayProp';
 export * from './props/BooleanProp';

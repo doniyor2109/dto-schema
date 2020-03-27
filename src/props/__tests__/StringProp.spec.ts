@@ -1,5 +1,4 @@
-import { parseDTO } from '../../parseDTO';
-import { serializeDTO } from '../../serializeDTO';
+import { parseDTO, serializeDTO } from '../../traversers';
 import { StringProp, StringPropOptions } from '../StringProp';
 
 test.each<[undefined | StringPropOptions, unknown, string | null]>([

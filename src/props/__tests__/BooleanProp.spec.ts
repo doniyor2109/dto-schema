@@ -1,5 +1,4 @@
-import { parseDTO } from '../../parseDTO';
-import { serializeDTO } from '../../serializeDTO';
+import { parseDTO, serializeDTO } from '../../traversers';
 import { BooleanProp, BooleanPropOptions } from '../BooleanProp';
 
 test.each<[undefined | BooleanPropOptions, unknown, boolean | null]>([

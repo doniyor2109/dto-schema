@@ -1,5 +1,4 @@
-import { parseDTO } from '../../parseDTO';
-import { serializeDTO } from '../../serializeDTO';
+import { parseDTO, serializeDTO } from '../../traversers';
 import { NumberProp, NumberPropOptions } from '../NumberProp';
 
 test.each<[undefined | NumberPropOptions, unknown, number | null]>([

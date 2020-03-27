@@ -1,5 +1,4 @@
-import { parseDTO } from '../../parseDTO';
-import { serializeDTO } from '../../serializeDTO';
+import { parseDTO, serializeDTO } from '../../traversers';
 import { ArrayProp, ArrayPropOptions } from '../ArrayProp';
 import { StringProp } from '../StringProp';
 

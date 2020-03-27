@@ -98,3 +98,11 @@ export function toString(value: unknown): string {
 export function castArray<T = unknown>(value: T | T[]): T[] {
   return Array.isArray(value) ? value : [value];
 }
+
+export function getProp(object: object, key: string): unknown {
+  return object[key as never];
+}
+
+export function setProp(object: object, key: string, value: unknown): void {
+  object[key as never] = value as never;
+}
