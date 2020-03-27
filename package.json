@@ -1,6 +1,6 @@
 {
   "name": "dto-schema",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "DTO mapper and validator",
   "repository": "git@github.com:umidbekkarimov/dto-schema.git",
   "license": "MIT",
