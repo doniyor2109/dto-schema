@@ -1,4 +1,4 @@
-import { toNumber, toString } from '../utils';
+import { castArray, toNumber, toString } from '../utils';
 
 test.each([
   ['', ''],
@@ -62,4 +62,23 @@ test.each([
   [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
 ])('toNumber(%p) => %p', (input, result) => {
   expect(toNumber(input)).toBe(result);
+});
+
+test.each([
+  [NaN, [NaN]],
+  [null, [null]],
+  [true, [true]],
+  [false, [false]],
+  [undefined, [undefined]],
+  [0, [0]],
+  [1, [1]],
+  ['text', ['text']],
+  [{}, [{}]],
+  [Object.create(null), [Object.create(null)]],
+  [
+    [NaN, null, true, false, undefined, 0, 1, 'text', {}, Object.create(null)],
+    [NaN, null, true, false, undefined, 0, 1, 'text', {}, Object.create(null)],
+  ],
+])('castArray(%p) => %p', (input, result) => {
+  expect(castArray(input)).toEqual(result);
 });

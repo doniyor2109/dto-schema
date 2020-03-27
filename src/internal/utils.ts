@@ -81,7 +81,7 @@ export function toString(value: unknown): string {
   }
 
   if (Array.isArray(value)) {
-    return String(value.map(x => toString(x)));
+    return String(value.map((x) => toString(x)));
   }
 
   if (isNumberLike(value)) {
@@ -93,4 +93,8 @@ export function toString(value: unknown): string {
   }
 
   return String(value);
+}
+
+export function castArray<T = unknown>(value: T | T[]): T[] {
+  return Array.isArray(value) ? value : [value];
 }

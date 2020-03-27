@@ -1,5 +1,6 @@
 import { getPropMeta, registerPropMeta } from '../internal/DTOMetadata';
 import { DTOSchema } from '../internal/DTOSchema';
+import { castArray, isFunction } from '../internal/utils';
 
 export interface ArrayPropOptions {
   defaultValue?: null | (() => unknown[]);
@@ -25,25 +26,19 @@ export function ArrayProp({
             return value;
           }
 
-          return value.map(x => schema.serialize(x));
+          return value.map((x) => schema.serialize(x));
         },
 
         normalize(raw: unknown) {
           const { schema } = getPropMeta(target, propertyKey as string);
 
-          if (raw == null) {
-            raw = [];
+          if (raw == null && isFunction(defaultValue)) {
+            raw = defaultValue();
           }
 
-          if (!Array.isArray(raw)) {
-            raw = [raw];
-          }
+          const value = raw == null ? [] : castArray(raw);
 
-          if (!schema) {
-            return raw as unknown[];
-          }
-
-          return (raw as unknown[]).map(x => schema.parse(x));
+          return !schema ? value : value.map((x) => schema.parse(x));
         },
       }),
     });
