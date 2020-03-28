@@ -3,7 +3,7 @@ import { Prop } from './Prop';
 
 export interface NumberPropOptions {
   /**
-   * Value to use when value is `null` or `undefined`.
+   * Default value to use when input value is `null` or `undefined`.
    */
   defaultValue?: null | number;
 
@@ -18,7 +18,7 @@ export interface NumberPropOptions {
   clampMax?: number;
 
   /**
-   * Round method to use to adjust a value.
+   * Round method to use to adjust input value.
    */
   round?: boolean | 'ceil' | 'floor' | 'trunc';
 }

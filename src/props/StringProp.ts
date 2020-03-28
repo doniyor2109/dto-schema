@@ -2,7 +2,14 @@ import { isString, toString } from '../internal/utils';
 import { Prop } from './Prop';
 
 export interface StringPropOptions {
+  /**
+   * Default value to use when input value is `null` or `undefined`.
+   */
   defaultValue?: null | string;
+
+  /**
+   * Trim method to adjust input value.
+   */
   trim?: boolean | 'start' | 'end';
 }
 

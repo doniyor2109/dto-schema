@@ -135,7 +135,7 @@ expect(
 ```typescript
 interface BooleanPropOptions {
   /**
-   * Value to use when value is `null` or `undefined`.
+   * Default value to use when input value is `null` or `undefined`.
    */
   defaultValue?: null | boolean;
 }
@@ -178,7 +178,7 @@ expect(
 ```typescript
 interface NumberPropOptions {
   /**
-   * Value to use when value is `null` or `undefined`.
+   * Default value to use when input value is `null` or `undefined`.
    */
   defaultValue?: null | number;
 
@@ -248,77 +248,50 @@ expect(
 });
 ```
 
-#### `NumberProp`
+#### `StringProp`
 
 ```typescript
-interface NumberPropOptions {
+interface StringPropOptions {
   /**
-   * Value to use when value is `null` or `undefined`.
+   * Default value to use when input value is `null` or `undefined`.
    */
-  defaultValue?: null | number;
+  defaultValue?: null | string;
 
   /**
-   * Lower bound of the number to clamp.
+   * Trim method to adjust input value.
    */
-  clampMin?: number;
-
-  /**
-   * Upper bound of the number to clamp.
-   */
-  clampMax?: number;
-
-  /**
-   * Round method to use to adjust a value.
-   */
-  round?: boolean | 'ceil' | 'floor' | 'trunc';
+  trim?: boolean | 'start' | 'end';
 }
 
-function NumberProp(options?: NumberPropOptions): PropertyDecorator;
+function StringProp(options?: StringPropOptions): PropertyDecorator;
 ```
 
-Annotates property as a `number`, accepts `NumberPropOptions`.
+Annotates property as a `number`, accepts `StringPropOptions`.
 
 ```typescript
-import { parseDTO, NumberProp } from 'dto-schema';
+import { parseDTO, StringProp } from 'dto-schema';
 
-class ProductFilter {
-  @NumberProp()
-  id: number;
-
-  @NumberProp({ defaultValue: 1, round: true, clampMin: 1 })
-  page: number;
-
-  @NumberProp({ defaultValue: null, round: true, clampMin: 1, clampMax: 50 })
-  pageSize: number;
+class UserDTO {
+  @StringProp() guid: string;
+  @StringProp({ trim: true }) name: string;
+  @StringProp({ trim: true, defaultValue: null }) email: string;
 }
 
-expect(parseDTO(ProductFilter, {})).toEqual({
-  id: NaN,
-  page: 1,
-  pageSize: null,
+expect(parseDTO(UserDTO, {})).toEqual({
+  guid: '',
+  name: '',
+  email: null,
 });
 
 expect(
   parseDTO(ProductFilter, {
-    id: 42,
-    page: 0,
-    pageSize: 100,
+    guid: '123',
+    name: ' Leeroy\n ',
+    email: ' leeroy@jenkins.dev \n',
   }),
 ).toEqual({
-  id: 42,
-  page: 1,
-  pageSize: 50,
-});
-
-expect(
-  parseDTO(ProductFilter, {
-    id: 42,
-    page: 3.33333,
-    pageSize: 3.3333,
-  }),
-).toEqual({
-  id: 42,
-  page: 3,
-  pageSize: 3,
+  guid: '123',
+  name: 'Leeroy',
+  email: 'leeroy@jenkins.dev',
 });
 ```

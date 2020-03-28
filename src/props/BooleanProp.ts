@@ -3,7 +3,7 @@ import { Prop } from './Prop';
 
 export interface BooleanPropOptions {
   /**
-   * Value to use when value is `null` or `undefined`.
+   *  Default value to use when input value is `null` or `undefined`.
    */
   defaultValue?: null | boolean;
 }
