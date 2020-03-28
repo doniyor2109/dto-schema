@@ -12,12 +12,11 @@ export function StringProp({
 }: StringPropOptions = {}): PropertyDecorator {
   return Prop<string>({
     type: 'string',
-    nullable: defaultValue === null,
     testType(raw) {
       return isString(raw);
     },
     normalize(raw) {
-      if (raw === null && defaultValue != null) {
+      if (raw == null && defaultValue !== undefined) {
         return defaultValue;
       }
 

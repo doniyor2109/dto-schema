@@ -17,7 +17,7 @@ test.each<[undefined | NumberPropOptions, unknown, number | null]>([
   [{ defaultValue: null }, null, null],
   [{ defaultValue: null }, undefined, null],
 
-  [{ defaultValue: 42 }, NaN, 42],
+  [{ defaultValue: 42 }, NaN, NaN],
   [{ defaultValue: 42 }, null, 42],
   [{ defaultValue: 42 }, undefined, 42],
 

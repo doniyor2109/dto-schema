@@ -1,31 +1,29 @@
 export interface DTOSchemaOptions<TValue = unknown> {
   type: string;
-  nullable?: boolean;
-
   testType: (value: unknown) => boolean;
-  normalize: (value: unknown) => TValue;
+  normalize: (value: unknown) => null | TValue;
   serialize?: (value: TValue) => unknown;
 }
 
 export class DTOSchema<TValue = unknown> {
   protected options: DTOSchemaOptions<TValue>;
 
-  constructor({ nullable = false, ...options }: DTOSchemaOptions<TValue>) {
-    this.options = { ...options, nullable };
+  constructor(options: DTOSchemaOptions<TValue>) {
+    this.options = options;
   }
 
   parse(raw: TValue | unknown): null | TValue {
-    const { type, normalize, nullable, testType } = this.options;
+    const { type, normalize, testType } = this.options;
 
     if (raw == null) {
       raw = null;
     }
 
-    if (nullable && raw === null) {
+    const value = normalize(raw);
+
+    if (value == null) {
       return null;
     }
-
-    const value = normalize(raw);
 
     if (!testType(value)) {
       throw new TypeError(

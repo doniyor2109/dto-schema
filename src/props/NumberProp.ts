@@ -41,16 +41,15 @@ export function NumberProp({
 
   return Prop<number>({
     type: 'number',
-    nullable: defaultValue === null,
     testType(raw) {
       return isNumber(raw);
     },
     normalize(raw) {
-      let value = toNumber(raw);
-
-      if (!Number.isFinite(value) && defaultValue != null) {
-        value = defaultValue;
+      if (raw == null && defaultValue !== undefined) {
+        return defaultValue;
       }
+
+      let value = toNumber(raw);
 
       if (Number.isFinite(value)) {
         switch (round) {

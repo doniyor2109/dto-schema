@@ -11,16 +11,22 @@ export function ObjectProp(
   { nullable }: ObjectPropOptions = {},
 ): PropertyDecorator {
   return Prop<object>({
-    nullable,
     type: 'object',
     testType(value) {
       return value instanceof constructorFactory();
     },
+    normalize(value) {
+      if (nullable && value == null) {
+        return null;
+      }
+
+      return parseDTO(
+        constructorFactory(),
+        value == null ? {} : (value as object),
+      );
+    },
     serialize(value) {
       return serializeDTO(constructorFactory(), value);
-    },
-    normalize(value) {
-      return parseDTO(constructorFactory(), value as object);
     },
   });
 }

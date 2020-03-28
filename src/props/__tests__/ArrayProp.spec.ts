@@ -8,12 +8,12 @@ test.each<[undefined | ArrayPropOptions, unknown, null | unknown[]]>([
   [undefined, [1, 2, 3], [1, 2, 3]],
   [undefined, ['a', 'b', 'c'], ['a', 'b', 'c']],
 
-  [{ defaultValue: null }, NaN, [NaN]],
-  [{ defaultValue: null }, null, null],
+  [{ defaultValue: () => null }, NaN, [NaN]],
+  [{ defaultValue: () => null }, null, null],
   [{ defaultValue: () => [1, 2, 3] }, null, [1, 2, 3]],
   [{ defaultValue: () => ['a', 'b', 'c'] }, null, ['a', 'b', 'c']],
 
-  [{ defaultValue: null }, [1, 2], [1, 2]],
+  [{ defaultValue: () => null }, [1, 2], [1, 2]],
   [{ defaultValue: () => [1, 2, 3] }, [1, 2], [1, 2]],
   [{ defaultValue: () => ['a', 'b', 'c'] }, ['a', 'b'], ['a', 'b']],
 ])('ArrayProp(%p) %p => %p', (options, input, result) => {
@@ -46,18 +46,18 @@ test.each<[undefined | ArrayPropOptions, unknown, null | unknown[]]>([
   expect(serialized3).toEqual({ values: result });
 });
 
-test.each<[ArrayPropOptions, unknown, null | string[]]>([
+test.each<[ArrayPropOptions, unknown, null | unknown[]]>([
   [{}, null, []],
   [{}, NaN, ['NaN']],
   [{}, [1, 2, 3], ['1', '2', '3']],
   [{}, ['a', 'b', 'c'], ['a', 'b', 'c']],
 
-  [{ defaultValue: null }, NaN, ['NaN']],
-  [{ defaultValue: null }, null, null],
+  [{ defaultValue: () => null }, NaN, ['NaN']],
+  [{ defaultValue: () => null }, null, null],
   [{ defaultValue: () => [1, 2, 3] }, null, ['1', '2', '3']],
   [{ defaultValue: () => ['a', 'b', 'c'] }, null, ['a', 'b', 'c']],
 
-  [{ defaultValue: null }, [1, 2], ['1', '2']],
+  [{ defaultValue: () => null }, [1, 2], ['1', '2']],
   [{ defaultValue: () => [1, 2, 3] }, [1, 2], ['1', '2']],
   [{ defaultValue: () => ['a', 'b', 'c'] }, ['a', 'b'], ['a', 'b']],
 ])('ArrayProp(%p) + StringProp() %p => %p', (options, input, result) => {

@@ -18,10 +18,10 @@ test.each<[undefined | DatePropOptions, unknown, null | Date, null | string]>([
     '1970-01-01T00:00:00.000Z',
   ],
 
-  [{ defaultValue: null }, '', new Date(NaN), null],
-  [{ defaultValue: null }, NaN, new Date(NaN), null],
-  [{ defaultValue: null }, null, null, null],
-  [{ defaultValue: null }, undefined, null, null],
+  [{ defaultValue: () => null }, '', new Date(NaN), null],
+  [{ defaultValue: () => null }, NaN, new Date(NaN), null],
+  [{ defaultValue: () => null }, null, null, null],
+  [{ defaultValue: () => null }, undefined, null, null],
 
   [{ defaultValue: () => 0 }, null, new Date(0), '1970-01-01T00:00:00.000Z'],
   [

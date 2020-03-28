@@ -13,12 +13,11 @@ export function BooleanProp({
 }: BooleanPropOptions = {}): PropertyDecorator {
   return Prop<boolean>({
     type: 'boolean',
-    nullable: defaultValue === null,
     testType(raw) {
       return isBoolean(raw);
     },
     normalize(raw) {
-      if (raw == null && defaultValue != null) {
+      if (raw == null && defaultValue !== undefined) {
         return defaultValue;
       }
 
