@@ -3,7 +3,7 @@ import { Prop } from './Prop';
 
 export interface StringPropOptions {
   nullable?: boolean;
-  trim?: boolean | 'left' | 'right';
+  trim?: boolean | 'start' | 'end';
 }
 
 export function StringProp({
@@ -23,11 +23,11 @@ export function StringProp({
         case true:
           value = value.trim();
           break;
-        case 'left':
-          value = value.trimLeft();
+        case 'start':
+          value = value.trimStart();
           break;
-        case 'right':
-          value = value.trimRight();
+        case 'end':
+          value = value.trimEnd();
           break;
       }
 

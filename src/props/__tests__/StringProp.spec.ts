@@ -19,8 +19,8 @@ test.each<[undefined | StringPropOptions, unknown, string | null]>([
   [{ trim: true }, null, ''],
   [{ trim: true }, undefined, ''],
   [{ trim: true }, ' text ', 'text'],
-  [{ trim: 'left' }, ' text ', 'text '],
-  [{ trim: 'right' }, ' text ', ' text'],
+  [{ trim: 'start' }, ' text ', 'text '],
+  [{ trim: 'end' }, ' text ', ' text'],
 ])('StringProp(%p, { value: %p }) => %p', (options, input, result) => {
   class Foo {
     @StringProp(options) value: string;
