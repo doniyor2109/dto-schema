@@ -28,10 +28,10 @@ function traverseDTO<
   return instance;
 }
 
-export function parseDTO<TValue extends object>(
-  Cls: DTOConstructor<TValue>,
-  raw: object | TValue,
-): TValue {
+export function parseDTO<T extends object>(
+  Cls: DTOConstructor<T>,
+  raw: object | T,
+): T {
   return traverseDTO(
     Cls,
     raw,
@@ -45,9 +45,9 @@ export function parseDTO<TValue extends object>(
   );
 }
 
-export function serializeDTO<TValue extends object>(
-  Cls: DTOConstructor<TValue>,
-  raw: object | TValue,
+export function serializeDTO<T extends object>(
+  Cls: DTOConstructor<T>,
+  raw: object | T,
 ): object {
   return traverseDTO(
     Cls,
