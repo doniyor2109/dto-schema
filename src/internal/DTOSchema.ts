@@ -2,7 +2,7 @@ export interface DTOSchemaOptions<TValue = unknown> {
   type: string;
   testType: (value: unknown) => boolean;
   normalize: (value: unknown) => null | TValue;
-  serialize?: (value: TValue) => unknown;
+  serialize?: (value: null | TValue) => unknown;
 }
 
 export class DTOSchema<TValue = unknown> {
@@ -43,7 +43,7 @@ export class DTOSchema<TValue = unknown> {
 
     const value = this.parse(raw);
 
-    if (value != null && serialize) {
+    if (serialize) {
       return serialize(value);
     }
 

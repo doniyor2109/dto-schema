@@ -34,6 +34,10 @@ export function ArrayProp<T>({
         },
 
         serialize(value) {
+          if (value == null) {
+            return null;
+          }
+
           const { schema } = getPropMeta(target, propertyKey as string);
 
           if (!schema?.serialize) {

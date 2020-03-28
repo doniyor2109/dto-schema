@@ -35,7 +35,7 @@ export function DateProp({
       return new Date(toNumber(raw));
     },
     serialize(raw) {
-      return raw.toJSON();
+      return raw == null ? null : raw.toJSON();
     },
   });
 }

@@ -26,7 +26,7 @@ export function ObjectProp(
       );
     },
     serialize(value) {
-      return serializeDTO(constructorFactory(), value);
+      return value && serializeDTO(constructorFactory(), value);
     },
   });
 }
