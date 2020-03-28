@@ -1,6 +1,6 @@
 ## DTO Schema
 
-![Node CI](https://github.com/umidbekkarimov/dto-schema/workflows/Node%20CI/badge.svg?branch=master)
+[![Build](https://github.com/umidbekkarimov/dto-schema/workflows/Build/badge.svg?branch=master)](https://github.com/umidbekkarimov/dto-schema/actions)
 [![codecov](https://codecov.io/gh/umidbekkarimov/dto-schema/branch/master/graph/badge.svg)](https://codecov.io/gh/umidbekkarimov/dto-schema)
 [![npm version](https://img.shields.io/npm/v/dto-schema.svg)](https://npmjs.com/dto-schema)
 [![npm minzipped size](https://img.shields.io/bundlephobia/minzip/dto-schema.svg)](https://bundlephobia.com/result?p=dto-schema)
