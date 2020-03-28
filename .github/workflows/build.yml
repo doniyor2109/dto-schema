@@ -16,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
+      - name: Setup Node v10
+        uses: actions/setup-node@v1
         with:
           node-version: 10.x
 
@@ -26,7 +28,8 @@ jobs:
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v1
+      - name: Cache dependencies
+        uses: actions/cache@v1
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: yarn-${{ hashFiles('**/yarn.lock') }}
@@ -45,7 +48,8 @@ jobs:
       - name: Test
         run: yarn test
 
-      - uses: codecov/codecov-action@v1
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
 
       - name: Build
         run: yarn build
