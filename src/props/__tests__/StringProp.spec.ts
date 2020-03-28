@@ -10,9 +10,13 @@ test.each<[undefined | StringPropOptions, unknown, string | null]>([
   [undefined, '', ''],
   [undefined, null, ''],
   [undefined, undefined, ''],
-  [{ nullable: true }, '', ''],
-  [{ nullable: true }, null, null],
-  [{ nullable: true }, undefined, null],
+  [{ defaultValue: null }, '', ''],
+  [{ defaultValue: null }, null, null],
+  [{ defaultValue: null }, undefined, null],
+
+  [{ defaultValue: 'text' }, '', ''],
+  [{ defaultValue: 'text' }, null, 'text'],
+  [{ defaultValue: 'text' }, undefined, 'text'],
 
   [undefined, ' text ', ' text '],
   [{ trim: true }, '', ''],

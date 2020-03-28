@@ -2,21 +2,25 @@ import { isString, toString } from '../internal/utils';
 import { Prop } from './Prop';
 
 export interface StringPropOptions {
-  nullable?: boolean;
+  defaultValue?: null | string;
   trim?: boolean | 'start' | 'end';
 }
 
 export function StringProp({
   trim,
-  nullable,
+  defaultValue,
 }: StringPropOptions = {}): PropertyDecorator {
   return Prop<string>({
     type: 'string',
-    nullable,
+    nullable: defaultValue === null,
     testType(raw) {
       return isString(raw);
     },
     normalize(raw) {
+      if (raw === null && defaultValue != null) {
+        return defaultValue;
+      }
+
       let value = toString(raw);
 
       switch (trim) {
