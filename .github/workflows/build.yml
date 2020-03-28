@@ -9,7 +9,7 @@ on:
       - '**'
   release:
     types:
-      - created
+      - prereleased
 
 jobs:
   build:
