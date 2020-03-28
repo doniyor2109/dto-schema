@@ -376,3 +376,52 @@ expect(
 ```
 
 </details>
+
+#### `ObjectProp`
+
+```typescript
+interface ObjectPropOptions {
+  nullable?: boolean;
+}
+
+function ObjectProp(options?: ObjectPropOptions): PropertyDecorator;
+```
+
+Annotates property as a `Object` with another DTO type.
+
+Accepts:
+
+- `nullable` - converts value to `null` when it's `null` or `undefined`, otherwise converts DTO with an empty object
+
+<details>
+<summary>Usage</summary>
+
+```typescript
+import { parseDTO, ObjectProp, StringProp } from 'dto-schema';
+
+class UserDTO {
+  @StringProp() guid: string;
+}
+
+class PostDTO {
+  @ObjectProp(() => UserDTO) createdBy: UserDTO;
+  @ObjectProp(() => UserDTO, { nullable: true }) updatedBy: null | UserDTO;
+}
+
+expect(parseDTO(PostDTO, {})).toEqual({
+  createdBy: { guid: '' },
+  updatedBy: null,
+});
+
+expect(
+  parseDTO(PostDTO, {
+    createdBy: { guid: 123 },
+    updatedBy: { guid: 456 },
+  }),
+).toEqual({
+  createdBy: { guid: '123' },
+  updatedBy: { guid: '456' },
+});
+```
+
+</details>
