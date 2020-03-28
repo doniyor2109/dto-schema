@@ -425,3 +425,48 @@ expect(
 ```
 
 </details>
+
+#### `ArrayProp`
+
+```typescript
+interface ArrayPropOptions<T> {
+  defaultValue?: () => null | T[];
+}
+
+function ArrayProp<T>(options?: ArrayPropOptions<T>): PropertyDecorator;
+```
+
+Annotates property as an `Array`, used in combination with another decorator.
+
+Accepts:
+
+- `defaultValue` - default value to use when input value is `null` or `undefined`
+
+<details>
+<summary>Usage</summary>
+
+```typescript
+import { parseDTO, ArrayProp, StringProp } from 'dto-schema';
+
+class PostDTO {
+  @ArrayProp({ defaultValue: () => null }) meta: unknown[];
+  @ArrayProp({ defaultValue: () => ['News'] }) @StringProp() tags: string[];
+}
+
+expect(parseDTO(PostDTO, {})).toEqual({
+  meta: null,
+  tags: ['News'],
+});
+
+expect(
+  parseDTO(PostDTO, {
+    meta: ['this', null, 'can', undefined, 'be', NaN, 'anything', true],
+    tags: ['this', null, 'will', undefined, 'be', NaN, 'transformed', true],
+  }),
+).toEqual({
+  meta: ['this', null, 'can', undefined, 'be', NaN, 'anything', true],
+  tags: ['this', '', 'will', '', 'be', 'NaN', 'transformed', 'true'],
+});
+```
+
+</details>

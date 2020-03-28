@@ -2,13 +2,13 @@ import { getPropMeta, registerPropMeta } from '../internal/DTOMetadata';
 import { DTOSchema } from '../internal/DTOSchema';
 import { castArray } from '../internal/utils';
 
-export interface ArrayPropOptions {
-  defaultValue?: () => null | unknown[];
+export interface ArrayPropOptions<T = unknown> {
+  defaultValue?: () => null | T[];
 }
 
-export function ArrayProp({
+export function ArrayProp<T>({
   defaultValue,
-}: ArrayPropOptions = {}): PropertyDecorator {
+}: ArrayPropOptions<T> = {}): PropertyDecorator {
   return (target, propertyKey) => {
     registerPropMeta(target, propertyKey, {
       arraySchema: new DTOSchema<unknown[]>({
