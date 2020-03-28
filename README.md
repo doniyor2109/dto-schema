@@ -53,6 +53,9 @@ function parseDTO<T extends object>(Cls: DTOConstructor, raw: T | object): T;
 
 Transforms provided `raw` value with rules defined in the provided `Cls` constructor.
 
+<details>
+<summary>Usage</summary>
+
 ```typescript
 import { parseDTO, StringProp } from 'dto-schema';
 
@@ -73,6 +76,8 @@ user.name = 'John';
 expect(parseDTO(UserDTO, user)).toEqual({ guid: '', name: 'John' });
 ```
 
+</details>
+
 #### `serializeDTO`
 
 ```typescript
@@ -83,6 +88,9 @@ function serializeDTO<T extends object>(
 ```
 
 Unlike `parseDTO`, `serializedDTO` uses `DTOSchemaOptions#serialize` method which prepares a valid JSON object.
+
+<details>
+<summary>Usage</summary>
 
 ```typescript
 import { serializedDTO, Prop } from 'dto-schema';
@@ -130,6 +138,8 @@ expect(
 });
 ```
 
+</details>
+
 #### `BooleanProp`
 
 ```typescript
@@ -140,9 +150,13 @@ interface BooleanPropOptions {
 function BooleanProp(options?: BooleanPropOptions): PropertyDecorator;
 ```
 
-Annotates property as a `boolean`, accepts:
+Annotates property as a `boolean`.
+Accepts:
 
 - `defaultValue` - default value to use when input value is `null` or `undefined`
+
+<details>
+<summary>Usage</summary>
 
 ```typescript
 import { parseDTO, BooleanProp } from 'dto-schema';
@@ -172,6 +186,8 @@ expect(
 });
 ```
 
+</details>
+
 #### `NumberProp`
 
 ```typescript
@@ -185,12 +201,16 @@ interface NumberPropOptions {
 function NumberProp(options?: NumberPropOptions): PropertyDecorator;
 ```
 
-Annotates property as a `number`, accept:
+Annotates property as a `number`.
+Accepts:
 
 - `clampMin` - lower bound of the number to clamp
 - `clampMax` - upper bound of the number to clamp
 - `round` - round method to use to adjust a value
 - `defaultValue` - Default value to use when input value is `null` or `undefined`
+
+<details>
+<summary>Usage</summary>
 
 ```typescript
 import { parseDTO, NumberProp } from 'dto-schema';
@@ -237,6 +257,8 @@ expect(
 });
 ```
 
+</details>
+
 #### `StringProp`
 
 ```typescript
@@ -248,10 +270,14 @@ interface StringPropOptions {
 function StringProp(options?: StringPropOptions): PropertyDecorator;
 ```
 
-Annotates property as a `number`, accepts:
+Annotates property as a `string`.
+Accepts:
 
 - `defaultValue` - default value to use when input value is `null` or `undefined`
 - `trim` - trim method to adjust input value
+
+<details>
+<summary>Usage</summary>
 
 ```typescript
 import { parseDTO, StringProp } from 'dto-schema';
@@ -269,7 +295,7 @@ expect(parseDTO(UserDTO, {})).toEqual({
 });
 
 expect(
-  parseDTO(ProductFilter, {
+  parseDTO(UserDTO, {
     guid: '123',
     name: ' Leeroy\n ',
     email: ' leeroy@jenkins.dev \n',
@@ -280,3 +306,73 @@ expect(
   email: 'leeroy@jenkins.dev',
 });
 ```
+
+</details>
+
+#### `DateProp`
+
+```typescript
+interface DatePropOptions {
+  defaultValue?: () => null | number | string | Date;
+}
+
+function DateProp(options?: DatePropOptions): PropertyDecorator;
+```
+
+Annotates property as a `Date`.
+Converted to the `ISO` string when serialized.
+Accepts:
+
+- `defaultValue` - default value to use when input value is `null` or `undefined`
+
+<details>
+<summary>Usage</summary>
+
+```typescript
+import { parseDTO, serializeDTO, DateProp } from 'dto-schema';
+
+class PostDTO {
+  @DateProp() updatedAt: string;
+  @DateProp({ defaultValue: null }) deletedAt: string;
+  @DateProp({ defaultValue: () => Date.UTC(2019, 4, 24) })
+  createdAt: string;
+}
+
+expect(parseDTO(PostDTO, {})).toEqual({
+  updatedAt: new Date(NaN), // Invalid Date,
+  deletedAt: null,
+  createdAt: new Date(Date.UTC(2019, 4, 24)),
+});
+
+expect(serializeDTO(PostDTO, {})).toEqual({
+  updatedAt: null, // Invalid Date,
+  deletedAt: null,
+  createdAt: '2019-05-24T00:00:00.000Z',
+});
+
+expect(
+  parseDTO(PostDTO, {
+    createdAt: Date.UTC(2019, 4, 24),
+    updatedAt: '2019-05-24T00:00:00.000Z',
+    deletedAt: new Date(Date.UTC(2019, 4, 24)),
+  }),
+).toEqual({
+  updatedAt: new Date(Date.UTC(2019, 4, 24)),
+  deletedAt: new Date(Date.UTC(2019, 4, 24)),
+  createdAt: new Date(Date.UTC(2019, 4, 24)),
+});
+
+expect(
+  serializeDTO(PostDTO, {
+    createdAt: Date.UTC(2019, 4, 24),
+    updatedAt: '2019-05-24T00:00:00.000Z',
+    deletedAt: new Date(Date.UTC(2019, 4, 24)),
+  }),
+).toEqual({
+  updatedAt: '2019-05-24T00:00:00.000Z',
+  deletedAt: '2019-05-24T00:00:00.000Z',
+  createdAt: '2019-05-24T00:00:00.000Z',
+});
+```
+
+</details>
