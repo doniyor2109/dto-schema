@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 10.x
 
-      - name: Obtain Yarn Cache
+      - name: Obtain Yarn cache directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
