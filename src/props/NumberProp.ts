@@ -2,24 +2,9 @@ import { isBoolean, isNumber, toNumber } from '../internal/utils';
 import { Prop } from './Prop';
 
 export interface NumberPropOptions {
-  /**
-   * Default value to use when input value is `null` or `undefined`.
-   */
   defaultValue?: null | number;
-
-  /**
-   * Lower bound of the number to clamp.
-   */
   clampMin?: number;
-
-  /**
-   * Upper bound of the number to clamp.
-   */
   clampMax?: number;
-
-  /**
-   * Round method to use to adjust input value.
-   */
   round?: boolean | 'ceil' | 'floor' | 'trunc';
 }
 

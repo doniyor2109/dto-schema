@@ -134,16 +134,15 @@ expect(
 
 ```typescript
 interface BooleanPropOptions {
-  /**
-   * Default value to use when input value is `null` or `undefined`.
-   */
   defaultValue?: null | boolean;
 }
 
 function BooleanProp(options?: BooleanPropOptions): PropertyDecorator;
 ```
 
-Annotates property as a `boolean`, accepts `BooleanPropOptions`.
+Annotates property as a `boolean`, accepts:
+
+- `defaultValue` - default value to use when input value is `null` or `undefined`
 
 ```typescript
 import { parseDTO, BooleanProp } from 'dto-schema';
@@ -177,31 +176,21 @@ expect(
 
 ```typescript
 interface NumberPropOptions {
-  /**
-   * Default value to use when input value is `null` or `undefined`.
-   */
   defaultValue?: null | number;
-
-  /**
-   * Lower bound of the number to clamp.
-   */
   clampMin?: number;
-
-  /**
-   * Upper bound of the number to clamp.
-   */
   clampMax?: number;
-
-  /**
-   * Round method to use to adjust a value.
-   */
   round?: boolean | 'ceil' | 'floor' | 'trunc';
 }
 
 function NumberProp(options?: NumberPropOptions): PropertyDecorator;
 ```
 
-Annotates property as a `number`, accepts `NumberPropOptions`.
+Annotates property as a `number`, accept:
+
+- `clampMin` - lower bound of the number to clamp
+- `clampMax` - upper bound of the number to clamp
+- `round` - round method to use to adjust a value
+- `defaultValue` - Default value to use when input value is `null` or `undefined`
 
 ```typescript
 import { parseDTO, NumberProp } from 'dto-schema';
@@ -252,21 +241,17 @@ expect(
 
 ```typescript
 interface StringPropOptions {
-  /**
-   * Default value to use when input value is `null` or `undefined`.
-   */
   defaultValue?: null | string;
-
-  /**
-   * Trim method to adjust input value.
-   */
   trim?: boolean | 'start' | 'end';
 }
 
 function StringProp(options?: StringPropOptions): PropertyDecorator;
 ```
 
-Annotates property as a `number`, accepts `StringPropOptions`.
+Annotates property as a `number`, accepts:
+
+- `defaultValue` - default value to use when input value is `null` or `undefined`
+- `trim` - trim method to adjust input value
 
 ```typescript
 import { parseDTO, StringProp } from 'dto-schema';
