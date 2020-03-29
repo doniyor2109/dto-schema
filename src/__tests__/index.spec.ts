@@ -10,6 +10,7 @@ test('public api', () => {
       "ObjectProp": [Function],
       "Prop": [Function],
       "StringProp": [Function],
+      "UnknownProp": [Function],
       "parseDTO": [Function],
       "serializeDTO": [Function],
     }

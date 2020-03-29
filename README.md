@@ -339,6 +339,44 @@ expect(
 
 </details>
 
+#### `@UnknownProp`
+
+```typescript
+interface UnknownPropOptions {
+  defaultValue?: () => null | number | string | Date;
+}
+
+function UnknownProp(options?: UnknownPropOptions): PropertyDecorator;
+```
+
+Annotates property as a `Date`.
+Converted to the `ISO` string when serialized.
+Accepts:
+
+- `defaultValue` - default value to use when input value is `null` or `undefined`
+
+<details>
+<summary>Usage</summary>
+
+```typescript
+import { parseDTO, serializeDTO, UnknownProp } from 'dto-schema';
+
+class UserDTO {
+  @UnknownProp() role: unknown;
+}
+
+expect(parseDTO(UserDTO, {}), { role: null });
+expect(serializeDTO(UserDTO, {}), { role: null });
+expect(parseDTO(UserDTO, { role: 1 }), { role: 1 });
+expect(serializeDTO(UserDTO, { role: 1 }), { role: 1 });
+expect(parseDTO(UserDTO, { role: 'a' }), { role: 'a' });
+expect(serializeDTO(UserDTO, { role: 'a' }), { role: 'a' });
+expect(parseDTO(UserDTO, { role: null }), { role: null });
+expect(serializeDTO(UserDTO, { role: null }), { role: null });
+```
+
+</details>
+
 #### `@ObjectProp`
 
 ```typescript

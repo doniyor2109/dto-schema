@@ -7,3 +7,4 @@ export * from './props/NumberProp';
 export * from './props/ObjectProp';
 export * from './props/Prop';
 export * from './props/StringProp';
+export * from './props/UnknownProp';
