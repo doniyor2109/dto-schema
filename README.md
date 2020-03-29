@@ -88,57 +88,7 @@ function serializeDTO<T extends object>(
 ```
 
 Unlike `parseDTO`, `serializedDTO` uses `DTOSchemaOptions#serialize` method which prepares a valid JSON object.
-
-<details>
-<summary>Usage</summary>
-
-```typescript
-import { serializedDTO, Prop } from 'dto-schema';
-
-class UserFilter {
-  @Prop({
-    type: 'set',
-    testType(value: unknown) {
-      return value instanceof Set;
-    },
-    normalize(value: unknown) {
-      if (value instanceof Set) {
-        return value;
-      }
-
-      if (Array.isArray(value)) {
-        return new Set(value);
-      }
-
-      return new Set();
-    },
-    serialize(value: Set<string>) {
-      return Array.from(value);
-    },
-  })
-  roles: Set<string>;
-}
-
-const filter = new UserFilter();
-filter.roles = new Set(['admin', 'editor']);
-
-expect(serializedDTO(UserFilter, filter)).toEqual({
-  roles: ['admin', 'editor'],
-});
-
-expect(
-  serializedDTO(UserFilter, { roles: new Set(['admin', 'editor']) }),
-).toEqual({ roles: ['admin', 'editor'] });
-
-expect(
-  serializedDTO(UserFilter, { roles: ['admin', 'editor', 'admin'] }),
-).toEqual({
-  // It will `parse` to the `Set` first, so duplicated `admin` role will be removed.
-  roles: ['admin', 'editor'],
-});
-```
-
-</details>
+Check [`DateProp`](#dateprop) and [`Prop`](#prop) examples.
 
 #### `BooleanProp`
 
@@ -421,6 +371,77 @@ expect(
 ).toEqual({
   createdBy: { guid: '123' },
   updatedBy: { guid: '456' },
+});
+```
+
+</details>
+
+#### `Prop`
+
+```typescript
+interface DTOSchemaOptions<TValue = unknown> {
+  type: string;
+  testType: (value: unknown) => boolean;
+  normalize: (value: unknown) => null | TValue;
+  serialize?: (value: null | TValue) => unknown;
+}
+
+function Prop<T>(options?: DTOSchemaOptions<T>): PropertyDecorator;
+```
+
+Annotates property with with another DTO type.
+
+Accepts:
+
+- `type` - name of the schema type, used for error messages
+- `testType` - used to validate object type of the schema
+- `normalize` - used to convert input value to required
+- `serialize` - used to convert value to JSON value
+
+<details>
+<summary>Usage</summary>
+
+```typescript
+import { parseDTO, serializeDTO, Prop } from 'dto-schema';
+
+class UserFilter {
+  @Prop<Set<string>>({
+    type: 'set',
+    testType(value) {
+      return value instanceof Set;
+    },
+    normalize(value) {
+      return value instanceof Set
+        ? value
+        : Array.isArray(value)
+        ? new Set(value)
+        : new Set();
+    },
+    serialize(value) {
+      return value == null ? [] : Array.from(value);
+    },
+  })
+  roles: Set<string>;
+}
+
+expect(parseDTO(UserFilter, {})).toEqual({
+  roles: new Set(),
+});
+
+expect(serializeDTO(UserFilter, {})).toEqual({
+  roles: [],
+});
+
+expect(
+  parseDTO(UserFilter, {
+    roles: ['admin', 'editor', 'admin'],
+  }),
+).toEqual({
+  roles: new Set(['admin', 'editor']),
+});
+
+expect(serializeDTO(UserFilter, {})).toEqual({
+  roles: ['admin', 'editor'],
 });
 ```
 
