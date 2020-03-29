@@ -8,22 +8,22 @@
 [![npm downloads](https://img.shields.io/npm/dm/dto-schema.svg)](https://npmjs.com/dto-schema)
 [![npm license](https://img.shields.io/npm/l/dto-schema.svg)](https://npmjs.com/dto-schema)
 
-  * [Installation](#installation)
-    * [Babel](#babel)
-    * [TypeScript](#typescript)
-    * [Browser](#browser)
- * [API](#api)
-    * [parseDTO](#parsedto)
-    * [serializeDTO](#serializedto)
-    * [BooleanProp](#booleanprop)
-    * [NumberProp](#numberprop)
-    * [StringProp](#stringprop)
-    * [DateProp](#dateprop)
-    * [UnknownProp](#unknownprop)
-    * [ObjectProp](#objectprop)
-    * [Prop](#prop)
-    * [ArrayProp](#arrayprop)
-    
+- [Installation](#installation)
+  - [Babel](#babel)
+  - [TypeScript](#typescript)
+  - [Browser](#browser)
+- [API](#api)
+  - [parseDTO](#parsedto)
+  - [serializeDTO](#serializedto)
+  - [BooleanProp](#booleanprop)
+  - [NumberProp](#numberprop)
+  - [StringProp](#stringprop)
+  - [DateProp](#dateprop)
+  - [UnknownProp](#unknownprop)
+  - [ObjectProp](#objectprop)
+  - [Prop](#prop)
+  - [ArrayProp](#arrayprop)
+
 ### Installation
 
 ```bash
