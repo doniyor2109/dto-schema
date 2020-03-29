@@ -45,6 +45,18 @@ Current build targets modern browsers that supports ESModules (see the [browserl
 
 ### API
 
+- Traversers
+  - [`parseDTO`](#parsedto)
+  - [`serializeDTO`](#serializedto)
+- Decorators
+  - [`@BooleanProp`](#booleanprop)
+  - [`@NumberProp`](#numberprop)
+  - [`@StringProp`](#stringprop)
+  - [`@DateProp`](#dateprop)
+  - [`@ObjectProp`](#objectprop)
+  - [`@Prop`](#prop)
+  - [`@ArrayProp`](#arrayprop)
+
 #### `parseDTO`
 
 ```typescript
@@ -90,7 +102,7 @@ function serializeDTO<T extends object>(
 Unlike `parseDTO`, `serializedDTO` uses `DTOSchemaOptions#serialize` method which prepares a valid JSON object.
 Check [`DateProp`](#dateprop) and [`Prop`](#prop) examples.
 
-#### `BooleanProp`
+#### `@BooleanProp`
 
 ```typescript
 interface BooleanPropOptions {
@@ -138,7 +150,7 @@ expect(
 
 </details>
 
-#### `NumberProp`
+#### `@NumberProp`
 
 ```typescript
 interface NumberPropOptions {
@@ -209,7 +221,7 @@ expect(
 
 </details>
 
-#### `StringProp`
+#### `@StringProp`
 
 ```typescript
 interface StringPropOptions {
@@ -259,7 +271,7 @@ expect(
 
 </details>
 
-#### `DateProp`
+#### `@DateProp`
 
 ```typescript
 interface DatePropOptions {
@@ -327,7 +339,7 @@ expect(
 
 </details>
 
-#### `ObjectProp`
+#### `@ObjectProp`
 
 ```typescript
 interface ObjectPropOptions {
@@ -376,7 +388,7 @@ expect(
 
 </details>
 
-#### `Prop`
+#### `@Prop`
 
 ```typescript
 interface DTOSchemaOptions<TValue = unknown> {
@@ -447,7 +459,7 @@ expect(serializeDTO(UserFilter, {})).toEqual({
 
 </details>
 
-#### `ArrayProp`
+#### `@ArrayProp`
 
 ```typescript
 interface ArrayPropOptions<T> {
